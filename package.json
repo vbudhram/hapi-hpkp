@@ -1,0 +1,31 @@
+{
+  "name": "hapi-hpkp",
+  "version": "1.0.0",
+  "description": "Hapi module to add HPKP headers",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/.bin/mocha tests/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbudhram/hapi-hpkp.git"
+  },
+  "keywords": [
+    "hapi",
+    "hpkp"
+  ],
+  "author": "Vijay Budhram",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vbudhram/hapi-hpkp/issues"
+  },
+  "homepage": "https://github.com/vbudhram/hapi-hpkp#readme",
+  "dependencies": {
+    "joi": "^9.0.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "hapi": "^15.0.2",
+    "mocha": "^3.0.2"
+  }
+}
