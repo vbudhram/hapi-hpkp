@@ -1,5 +1,5 @@
 var assert = require('chai').assert
-var hpkp = require('../index')
+var hpkp = require('../lib/hpkp')
 var Hapi = require('hapi')
 var server
 
@@ -9,6 +9,15 @@ function createServer(port, hpkpOptions) {
     port: port
   })
 
+  server.register({
+    register: require('../index.js'),
+    options: hpkpOptions
+  }, function (err) {
+    if (err) {
+      console.error('Failed to load plugin:', err);
+    }
+  });
+
   server.route({
     method: 'GET',
     path: '/',
@@ -16,8 +25,6 @@ function createServer(port, hpkpOptions) {
       return reply('HPKP!')
     }
   })
-
-  server.ext('onPreResponse', hpkp(hpkpOptions))
 
   server.start()
 
