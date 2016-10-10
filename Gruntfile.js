@@ -11,13 +11,3 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['lint', 'nsp'])
 }
-
-
-server.register({
-  register: require('../index.js'),
-  options: hpkpOptions
-}, function (err) {
-  if (err) {
-    console.error('Failed to load plugin:', err)
-  }
-});
