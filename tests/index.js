@@ -4,7 +4,7 @@ var Hapi = require('hapi')
 var server
 
 function createServer(port, hpkpOptions) {
-  server = new Hapi.Server();
+  server = new Hapi.Server()
   server.connection({
     port: port
   })
@@ -14,7 +14,7 @@ function createServer(port, hpkpOptions) {
     options: hpkpOptions
   }, function (err) {
     if (err) {
-      console.error('Failed to load plugin:', err);
+      console.error('Failed to load plugin:', err)
     }
   });
 

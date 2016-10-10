@@ -1,5 +1,5 @@
 # hapi-hpkp
-Inspired by [Helmetjs](https://github.com/helmetjs/hpkp), this is a Hapi module to add HPKP headers.
+Inspired by [Helmetjs](https://github.com/helmetjs/hpkp), this is a Hapi module to add HPKP headers to all requests.
 
 ## Example
 
@@ -7,13 +7,23 @@ Inspired by [Helmetjs](https://github.com/helmetjs/hpkp), this is a Hapi module 
 var hpkp = require('./index')
 var Hapi = require('hapi')
 
-var server = new Hapi.Server();
-
-server.ext('onPreResponse', hpkp({
+var hpkpOptions = {
     maxAge: 1,                       // In seconds
     sha256s: ["orlando=", "magic="], // Array of sha256
     includeSubdomains: true,         // optional
     reportUri: 'http://test.site',   // optional
     reportOnly: false,               // optional
-}))
+}
+
+var server = new Hapi.Server();
+
+// Register HPKP plugin
+server.register({
+  register: hpkp,
+  options: hpkpOptions
+}, function (err) {
+  if (err) {
+    console.error('Failed to load plugin:', err)
+  }
+});
 ```
