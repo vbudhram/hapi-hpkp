@@ -36,7 +36,7 @@ var sha256s = [
   'magic='
 ]
 
-var validTestCases = [
+var passingTestCases = [
   {
     name: 'should process minimum HPKP header',
     options: {
@@ -80,7 +80,7 @@ var validTestCases = [
 ]
 
 describe('HPKP Headers', function () {
-  validTestCases.forEach(function (testCase) {
+  passingTestCases.forEach(function (testCase) {
     var server
     var requestOptions = {
       method: "GET",
@@ -102,7 +102,7 @@ describe('HPKP Headers', function () {
   })
 })
 
-var inputTestCases = [
+var failingTestCases = [
   {
     name: 'should throw without any options',
     options: {},
@@ -126,7 +126,7 @@ var inputTestCases = [
 ]
 
 describe('HPKP Config', function () {
-  inputTestCases.forEach(function (testCase) {
+  failingTestCases.forEach(function (testCase) {
     it(testCase.name, function () {
       assert.throws(function () {
         hpkp(testCase.options)

@@ -12,10 +12,10 @@ var hpkpOptions = {
     sha256s: ["orlando=", "magic="], // Array of sha256
     includeSubdomains: true,         // optional
     reportUri: 'http://test.site',   // optional
-    reportOnly: false,               // optional
+    reportOnly: false                // optional
 }
 
-var server = new Hapi.Server();
+var server = new Hapi.Server()
 
 // Register HPKP plugin
 server.register({
@@ -25,5 +25,5 @@ server.register({
   if (err) {
     console.error('Failed to load plugin:', err)
   }
-});
+})
 ```
