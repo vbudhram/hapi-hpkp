@@ -3,31 +3,29 @@ var hpkp = require('../lib/hpkp')
 var Hapi = require('hapi')
 var server
 
-function createServer(port, hpkpOptions) {
-  server = new Hapi.Server()
-  server.connection({
+async function createServer(port, hpkpOptions) {
+  server = new Hapi.Server({
     port: port
   })
 
-  server.register({
-    register: require('../index.js'),
-    options: hpkpOptions
-  }, function (err) {
-    if (err) {
-      console.error('Failed to load plugin:', err)
-    }
-  });
+  try{
+   await server.register({
+      plugin: require('../index.js'),
+      options: hpkpOptions
+    })
+  }catch(err){
+    console.error('Failed to load plugin:', err)
+  }
 
-  server.route({
+  await server.route({
     method: 'GET',
     path: '/',
     handler: function (request, reply) {
-      return reply('HPKP!')
+      return 'HPKP!'
     }
   })
 
-  server.start()
-
+  await server.start()
   return server
 }
 
@@ -86,17 +84,14 @@ describe('HPKP Headers', function () {
       method: "GET",
       url: "/"
     }
-    before(function () {
-      server = createServer(3000, testCase.options)
-    })
 
-    after(function () {
-      return server.stop()
-    })
-    it(testCase.name, function (done) {
-      server.inject(requestOptions, function (response) {
-        assert.equal(response.headers[testCase.expectedKey], testCase.expectedHeader)
-        done()
+    it(testCase.name, function () {
+      return createServer(3000, testCase.options).then((s) => {
+        server = s
+        return server.inject(requestOptions).then((response) => {
+          assert.equal(response.headers[testCase.expectedKey], testCase.expectedHeader)
+          return server.stop()
+        })
       })
     })
   })

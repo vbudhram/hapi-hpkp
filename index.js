@@ -6,12 +6,9 @@
 
 var hpkp = require('./lib/hpkp')
 
-exports.register = function (server, options, next) {
-  server.ext('onPreResponse', hpkp(options))
-
-  next()
-}
-
-exports.register.attributes = {
-  pkg: require('./package.json')
+exports.plugin = {
+  pkg: require('./package.json'),
+  register: function (server, options) {
+    server.ext('onPreResponse', hpkp(options))
+  }
 }
