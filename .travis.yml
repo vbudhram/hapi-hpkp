@@ -1,0 +1,13 @@
+language: node_js
+
+node_js:
+ - "8"
+
+dist: trusty
+
+notifications:
+  email:
+    - vbudhram@gmail.com
+
+script:
+  - npm test
