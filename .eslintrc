@@ -1,1 +1,4 @@
 extends: fxa/server
+
+parserOptions:
+  ecmaVersion: 2017
