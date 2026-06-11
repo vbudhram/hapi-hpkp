@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/vbudhram/hapi-hpkp#readme",
   "dependencies": {
-    "joi": "13.3.0"
+    "joi": "18.2.1"
   },
   "devDependencies": {
     "chai": "4.1.2",
